@@ -1,6 +1,6 @@
 variable "resource_group" {
   description = "The name of the resource group in which to create the virtual network."
-  default = "rg-terraform"
+  default     = "rgroup-terraform"
 }
 
 variable "rg_prefix" {
@@ -10,22 +10,22 @@ variable "rg_prefix" {
 
 variable "hostname" {
   description = "VM name referenced also in storage-related names."
-  default = "VM"
+  default     = "VM"
 }
 
 variable "vm_count" {
   description = "Number of VMs to create"
-  default = 3
+  default     = 3
 }
 
 variable "dns_name" {
   description = " Label for the Domain Name. Will be used to make up the FQDN. If a domain name label is specified, an A DNS record is created for the public IP in the Microsoft Azure DNS system."
-  default = "idanwashere"
+  default     = "idanwashere"
 }
 
 variable "lb_ip_dns_name" {
   description = "DNS for Load Balancer IP"
-  default = "fats-and-happy-terraform"
+  default     = "fats-and-happy-terraform"
 }
 
 variable "location" {
@@ -43,10 +43,16 @@ variable "address_space" {
   default     = "10.0.0.0/16"
 }
 
-variable "subnet_prefix" {
-  description = "The address prefix to use for the subnet."
+variable "web_subnet_prefix" {
+  description = "The address prefix to use for the subnet of the web tier"
   default     = "10.0.1.0/24"
 }
+
+variable "db_subnet_prefix" {
+  description = "The address prefix to use for the subnet of the data tier"
+  default     = "10.0.2.0/24"
+}
+
 
 variable "storage_account_tier" {
   description = "Defines the Tier of storage account to be created. Valid options are Standard and Premium."
@@ -90,5 +96,5 @@ variable "admin_username" {
 
 variable "admin_password" {
   description = "administrator password (recommended to disable password auth)"
-  default = "jkfgJ3gsaSu92lkvsjog&3[p*)Ak_a"
+  default     = "jkfgJ3gsaSu92lkvsjog&3[p*)Ak_a"
 }
