@@ -116,15 +116,26 @@ resource "azurerm_network_interface" "web_nic" {
     name                          = "ipconfig-web-${count.index}"
     subnet_id                     = azurerm_subnet.web_subnet.id
     private_ip_address_allocation = "Dynamic"
+
   }
+  internal_dns_name_label = "Web-VM-${count.index}"
 }
 
+resource "azurerm_network_interface_backend_address_pool_association" "web_nic_association" {
+  network_interface_id    = element(azurerm_network_interface.web_nic.*.id, count.index)
+  ip_configuration_name   = "ipconfig-web-${count.index}"
+  backend_address_pool_id = azurerm_lb_backend_address_pool.backend_pool.id
+  count                   = 3
+
+}
 
 resource "azurerm_network_interface" "db_nic" {
-  name                = "db_nic-${count.index}"
-  location            = var.location
-  resource_group_name = azurerm_resource_group.rg.name
-  count               = 1
+  name                    = "db_nic-${count.index}"
+  location                = var.location
+  resource_group_name     = azurerm_resource_group.rg.name
+  count                   = 1
+  internal_dns_name_label = "DB-VM-${count.index}"
+
 
   ip_configuration {
     name                          = "ipconfig-db-${count.index}"
